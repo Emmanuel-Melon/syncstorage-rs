@@ -440,7 +440,7 @@ pub async fn heartbeat(hb: HeartbeatRequest) -> HttpResponse {
     }
 }
 
-pub fn test_error(
+pub async fn test_error(
     _req: HttpRequest,
     ter: TestErrorRequest,
 ) -> HttpResponse {
