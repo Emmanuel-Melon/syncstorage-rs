@@ -440,10 +440,8 @@ pub async fn heartbeat(hb: HeartbeatRequest) -> HttpResponse {
     }
 }
 
-pub async fn test_error(
-    _req: HttpRequest,
-    ter: TestErrorRequest,
-) -> HttpResponse {
+// try returning an API error
+pub async fn test_error(_req: HttpRequest, ter: TestErrorRequest) -> Result<HttpResponse, ApiError> {
     // generate an error for sentry.
 
     /*  The various error log macros only can take a string.
@@ -460,6 +458,5 @@ pub async fn test_error(
     // ApiError will call the middleware layer to auto-append the tags.
     let err = ApiError::from(ApiErrorKind::Internal("Oh Noes!".to_owned()));
 
-    // future::ready(Err(err))
-    (From::from)(err)
+    Err(err)
 }
